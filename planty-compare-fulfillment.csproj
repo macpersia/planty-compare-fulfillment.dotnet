@@ -5,6 +5,7 @@
     <RootNamespace>planty_compare_fulfillment</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Google.Cloud.Dialogflow.V2" Version="1.0.0-beta02" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.24" />
   </ItemGroup>
   <ItemGroup>
