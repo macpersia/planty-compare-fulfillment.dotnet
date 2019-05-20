@@ -82,13 +82,12 @@ namespace planty_compare_fulfillment.dotnet
             switch (requestType)
             {
                 case PlantyRequestType.EquivalentIncomeEstimate:
-                    var targetCity = "Berlin";
-                    var targetCurrency = "USD";
-                    var baseCity = "Kuala Lumpur";
-                    var baseIncomeAmount = 4000;
-                    var baseCurrency = "USD";
+                    // TODO: Parameterize targetCurrency too
+                    var targetCurrency = request.QueryResult.Parameters
+                                        // .Fields["targetCurrency"].StringValue;
+                                        .Fields["baseIncome"].StructValue.Fields["currency"].StringValue;
 
-                    decimal incomeAmount = await GetEquivalentIncome(targetCity, targetCurrency, baseCity, baseIncomeAmount, baseCurrency);
+                    decimal incomeAmount = await GetEquivalentIncome(request);
                     string estimateText =
                         $"You'd need to earn {incomeAmount} {targetCurrency}s, to maintain a comparable lifestyle.";
                     webHookResp = GetDialogFlowResponse(userId, estimateText);
@@ -116,10 +115,20 @@ namespace planty_compare_fulfillment.dotnet
             return contRes;
         }
 
-        private static async Task<decimal> GetEquivalentIncome(string targetCity, string targetCurrency, string baseCity, int baseIncomeAmount, string baseCurrency)
+        private static async Task<decimal> GetEquivalentIncome(WebhookRequest request)
         {
+            var requestFields = request.QueryResult.Parameters.Fields;
+            var targetCity = requestFields["targetCity"].StringValue;
+            // var targetCurrency = requestFields["targetCurrency"].StringValue;
+            var baseCity = requestFields["baseCity"].StringValue;
+            var baseIncomeFields = requestFields["baseIncome"].StructValue.Fields;
+            var baseIncomeAmount = (int)baseIncomeFields["amount"].NumberValue;
+            var baseCurrency = baseIncomeFields["currency"].StringValue;
+            // TODO: Parameterize targetCurrency too
+            var targetCurrency = baseCurrency;
+
             var response = await client.GetAsync(
-                "https://localhost:5001/api/equivalent-income?"
+                "http://localhost:5000/api/equivalent-income?"
                 + $"targetCity={targetCity}&targetCurrency={targetCurrency}"
                 + $"&baseCity={baseCity}&baseIncomeAmount={baseIncomeAmount}&baseCurrency={baseCurrency}");
 
