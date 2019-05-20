@@ -1,0 +1,23 @@
+{
+  "name": "planty-compare-fulfillment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "azure-functions-core-tools": "^2.7.1158"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/macpersia/planty-compare-fulfillment.dotnet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/macpersia/planty-compare-fulfillment.dotnet/issues"
+  },
+  "homepage": "https://github.com/macpersia/planty-compare-fulfillment.dotnet#readme"
+}
