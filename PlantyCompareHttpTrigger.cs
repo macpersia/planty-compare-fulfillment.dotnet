@@ -128,7 +128,8 @@ namespace planty_compare_fulfillment.dotnet
             var targetCurrency = baseCurrency;
 
             var response = await client.GetAsync(
-                "http://localhost:5000/api/equivalent-income?"
+                // "http://localhost:5000/api/equivalent-income?"
+                "http://pc.planty-ideas.net:8080/api/equivalent-income?"
                 + $"targetCity={targetCity}&targetCurrency={targetCurrency}"
                 + $"&baseCity={baseCity}&baseIncomeAmount={baseIncomeAmount}&baseCurrency={baseCurrency}");
 
